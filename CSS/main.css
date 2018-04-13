@@ -1,0 +1,13 @@
+body {
+  background-image: url("../images/background.jpeg"); }
+
+#data {
+  padding-top: 20%; }
+
+.visibility-hidden {
+  visibility: hidden; }
+
+.card-width {
+  width: 30rem; }
+
+/*# sourceMappingURL=main.css.map */
