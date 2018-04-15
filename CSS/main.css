@@ -2,7 +2,7 @@ body {
   background-image: url("../images/background.jpeg"); }
 
 #data {
-  padding-top: 20%; }
+  padding-top: 5%; }
 
 .visibility-hidden {
   visibility: hidden; }
