@@ -46,10 +46,17 @@ function selector(){
 function TemplateInput(Number: number,Tipo:string = "PPS", mensaje: string = 'materia'){
     let REPLACECALC:HTMLElement = <HTMLElement> document.getElementById(`${Tipo}-replace`)
      REPLACECALC.innerHTML = ""
+
+    let div_alert_info: HTMLElement = <HTMLElement> document.createElement("div")
+    div_alert_info.classList.add("alert","alert-info")
+    div_alert_info.setAttribute("role","alert")
+    div_alert_info.innerHTML = "Para ingresar números decimales usar el punto<b>.</b>"
+
     let div_alert: HTMLElement = <HTMLElement> document.createElement("div")
     div_alert.classList.add("visibility-hidden","alert","alert-danger")
     div_alert.setAttribute("role","alert")
     div_alert.innerText = "Las notas deben estar entre el rango de 0.5 a 5"
+    REPLACECALC.appendChild(div_alert_info)
     REPLACECALC.appendChild(div_alert)
 
     if (Tipo == "PPS") {

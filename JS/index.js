@@ -38,10 +38,15 @@ function TemplateInput(Number, Tipo, mensaje) {
     if (mensaje === void 0) { mensaje = 'materia'; }
     var REPLACECALC = document.getElementById(Tipo + "-replace");
     REPLACECALC.innerHTML = "";
+    var div_alert_info = document.createElement("div");
+    div_alert_info.classList.add("alert", "alert-info");
+    div_alert_info.setAttribute("role", "alert");
+    div_alert_info.innerHTML = "Para ingresar números decimales usar el punto<b>.</b>";
     var div_alert = document.createElement("div");
     div_alert.classList.add("visibility-hidden", "alert", "alert-danger");
     div_alert.setAttribute("role", "alert");
     div_alert.innerText = "Las notas deben estar entre el rango de 0.5 a 5";
+    REPLACECALC.appendChild(div_alert_info);
     REPLACECALC.appendChild(div_alert);
     if (Tipo == "PPS") {
         for (var _i = 0; _i < Number; _i++) {
