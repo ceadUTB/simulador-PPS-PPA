@@ -238,7 +238,7 @@ function ShowCalc(Tipo, Promedio) {
     var div_sm = document.createElement("div");
     div_sm.classList.add("col-sm");
     var h5 = document.createElement('h5');
-    h5.innerText = "Su nota es: ";
+    h5.innerText = "Su promedio (" + Tipo + ") es:";
     var div = document.createElement('div');
     div.classList.add('bg-info');
     var h4 = document.createElement('h4');

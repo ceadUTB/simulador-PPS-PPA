@@ -298,7 +298,7 @@ function ShowCalc(Tipo:string = "PPS",Promedio: number){
   div_sm.classList.add("col-sm")
 
   let h5 : HTMLElement = <HTMLElement> document.createElement('h5')
-  h5.innerText = "Su nota es: "
+  h5.innerText = `Su promedio (${Tipo}) es:` 
 
   let div : HTMLElement = <HTMLElement> document.createElement('div')
   div.classList.add('bg-info')
