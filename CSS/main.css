@@ -5,7 +5,7 @@ body {
   padding-top: 5%; }
 
 .visibility-hidden {
-  visibility: hidden; }
+  display: none; }
 
 .card-width {
   width: 30rem; }

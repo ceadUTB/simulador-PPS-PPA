@@ -38,6 +38,11 @@ function TemplateInput(Number, Tipo, mensaje) {
     if (mensaje === void 0) { mensaje = 'materia'; }
     var REPLACECALC = document.getElementById(Tipo + "-replace");
     REPLACECALC.innerHTML = "";
+    var div_alert = document.createElement("div");
+    div_alert.classList.add("visibility-hidden", "alert", "alert-danger");
+    div_alert.setAttribute("role", "alert");
+    div_alert.innerText = "Las notas deben estar entre el rango de 0.5 a 5";
+    REPLACECALC.appendChild(div_alert);
     if (Tipo == "PPS") {
         for (var _i = 0; _i < Number; _i++) {
             var h5 = document.createElement("h5");
@@ -53,6 +58,8 @@ function TemplateInput(Number, Tipo, mensaje) {
             var input = document.createElement('input');
             input.classList.add('form-control', 'form-contro-sm');
             input.setAttribute('type', 'text');
+            input.setAttribute('min', '0.5');
+            input.setAttribute('max', '5');
             input.id = "nota-" + (_i + 1);
             input.setAttribute('placeholder', "Nota " + mensaje + " " + (_i + 1));
             form_group.appendChild(label);
@@ -124,7 +131,12 @@ function TemplateInput(Number, Tipo, mensaje) {
     buttonSend.classList.add("btn", "btn-success");
     buttonSend.innerHTML = "Enviar";
     buttonSend.onclick = function () {
-        ShowCalc(Tipo, Calc(Number, Tipo));
+        if (Calc(Number, Tipo) != 0) {
+            ShowCalc(Tipo, Calc(Number, Tipo));
+        }
+        else {
+            div_alert.classList.remove("visibility-hidden");
+        }
     };
     div_sm_send_second.appendChild(buttonSend);
     div_sm_send_first.appendChild(buttonReturn);
@@ -261,15 +273,25 @@ function Calc(Numero, Tipo) {
         var sumatoria = 0;
         var creditos = 0;
         for (var _j = 0; _j < Numero; _j++) {
-            sumatoria = sumatoria + (Number(document.getElementById("nota-" + (_j + 1)).value) * Number(document.getElementById("credito-" + (_j + 1)).value));
-            creditos = creditos + Number(document.getElementById("credito-" + (_j + 1)).value);
+            if (Number(document.getElementById("nota-" + (_j + 1)).value) >= 0.5 && Number(document.getElementById("nota-" + (_j + 1)).value) <= 5) {
+                sumatoria = sumatoria + (Number(document.getElementById("nota-" + (_j + 1)).value) * Number(document.getElementById("credito-" + (_j + 1)).value));
+                creditos = creditos + Number(document.getElementById("credito-" + (_j + 1)).value);
+            }
+            else {
+                return 0;
+            }
         }
         return sumatoria / creditos;
     }
     else {
         var sumatoria = 0;
         for (var _i = 0; _i < Numero; _i++) {
-            sumatoria = sumatoria + Number(document.getElementById("nota-" + (_i + 1)).value);
+            if (Number(document.getElementById("nota-" + (_i + 1)).value) >= 0.5 && Number(document.getElementById("nota-" + (_i + 1)).value) <= 5) {
+                sumatoria = sumatoria + Number(document.getElementById("nota-" + (_i + 1)).value);
+            }
+            else {
+                return 0;
+            }
         }
         return sumatoria / Numero;
     }

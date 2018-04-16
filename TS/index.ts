@@ -46,6 +46,11 @@ function selector(){
 function TemplateInput(Number: number,Tipo:string = "PPS", mensaje: string = 'materia'){
     let REPLACECALC:HTMLElement = <HTMLElement> document.getElementById(`${Tipo}-replace`)
      REPLACECALC.innerHTML = ""
+    let div_alert: HTMLElement = <HTMLElement> document.createElement("div")
+    div_alert.classList.add("visibility-hidden","alert","alert-danger")
+    div_alert.setAttribute("role","alert")
+    div_alert.innerText = "Las notas deben estar entre el rango de 0.5 a 5"
+    REPLACECALC.appendChild(div_alert)
 
     if (Tipo == "PPS") {
       for(var _i = 0; _i < Number ; _i++){
@@ -67,6 +72,8 @@ function TemplateInput(Number: number,Tipo:string = "PPS", mensaje: string = 'ma
         let input:HTMLElement = <HTMLElement> document.createElement('input')
         input.classList.add('form-control','form-contro-sm')
         input.setAttribute('type','text')
+        input.setAttribute('min','0.5')
+        input.setAttribute('max','5')
         input.id = `nota-${_i+1}`
         input.setAttribute('placeholder',`Nota ${mensaje} ${_i+1}`)
 
@@ -161,7 +168,11 @@ function TemplateInput(Number: number,Tipo:string = "PPS", mensaje: string = 'ma
     buttonSend.classList.add("btn", "btn-success")
     buttonSend.innerHTML ="Enviar"
     buttonSend.onclick = () => {
-      ShowCalc(Tipo,Calc(Number,Tipo))
+      if (Calc(Number,Tipo) != 0) {
+        ShowCalc(Tipo,Calc(Number,Tipo))
+      }else{
+        div_alert.classList.remove("visibility-hidden")
+      }
     }
 
     div_sm_send_second.appendChild(buttonSend)
@@ -332,14 +343,22 @@ function Calc(Numero: number, Tipo: string = "PPS" ):number{
     let sumatoria: number = 0
     let creditos: number = 0
     for(var _j = 0; _j < Numero ; _j++){
-      sumatoria = sumatoria + ( Number((<HTMLInputElement> document.getElementById(`nota-${_j+1}`)).value) * Number((<HTMLInputElement> document.getElementById(`credito-${_j+1}`)).value)  )
-      creditos = creditos + Number((<HTMLInputElement> document.getElementById(`credito-${_j+1}`)).value)
+      if (Number((<HTMLInputElement> document.getElementById(`nota-${_j+1}`)).value)>=0.5 && Number((<HTMLInputElement> document.getElementById(`nota-${_j+1}`)).value) <= 5) {
+        sumatoria = sumatoria + ( Number((<HTMLInputElement> document.getElementById(`nota-${_j+1}`)).value) * Number((<HTMLInputElement> document.getElementById(`credito-${_j+1}`)).value)  )
+        creditos = creditos + Number((<HTMLInputElement> document.getElementById(`credito-${_j+1}`)).value)
+      }else{
+        return 0
+      }
     }
     return sumatoria/creditos
   }else{
     let sumatoria: number = 0
     for(var _i = 0; _i < Numero ; _i++){
-      sumatoria = sumatoria +  Number((<HTMLInputElement> document.getElementById(`nota-${_i+1}`)).value)
+      if (Number((<HTMLInputElement> document.getElementById(`nota-${_i+1}`)).value)>=0.5 && Number((<HTMLInputElement> document.getElementById(`nota-${_i+1}`)).value) <= 5) {
+          sumatoria = sumatoria +  Number((<HTMLInputElement> document.getElementById(`nota-${_i+1}`)).value)
+      }else{
+        return 0
+      }
     }
       return sumatoria/Numero
   }
