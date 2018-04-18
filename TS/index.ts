@@ -239,7 +239,7 @@ function TemplateQuestion(Tipo:string = "PPS",Pregunta: string = "Cuántas mater
   buttonSend.id = `${Tipo}-send`
   buttonSend.innerHTML ="Enviar"
   buttonSend.onclick = () => {
-    Tipo == "PPS" ? TemplateInput(Number(input.value),Tipo) : TemplateInput(Number(input.value),Tipo, 'Semestre')
+    Tipo == "PPS" ?  Number(input.value)> 0 ? TemplateInput(Number(input.value),Tipo):false : Number(input.value) > 0 ? TemplateInput(Number(input.value),Tipo, 'Semestre') : false
   }
 
   let buttonReturn:HTMLElement = <HTMLElement> document.createElement("button")
@@ -298,7 +298,7 @@ function ShowCalc(Tipo:string = "PPS",Promedio: number){
   div_sm.classList.add("col-sm")
 
   let h5 : HTMLElement = <HTMLElement> document.createElement('h5')
-  h5.innerText = `Su promedio (${Tipo}) es:` 
+  h5.innerText = `Su promedio (${Tipo}) es:`
 
   let div : HTMLElement = <HTMLElement> document.createElement('div')
   div.classList.add('bg-info')

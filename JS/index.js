@@ -189,7 +189,7 @@ function TemplateQuestion(Tipo, Pregunta, PlaceHolder) {
     buttonSend.id = Tipo + "-send";
     buttonSend.innerHTML = "Enviar";
     buttonSend.onclick = function () {
-        Tipo == "PPS" ? TemplateInput(Number(input.value), Tipo) : TemplateInput(Number(input.value), Tipo, 'Semestre');
+        Tipo == "PPS" ? Number(input.value) > 0 ? TemplateInput(Number(input.value), Tipo) : false : Number(input.value) > 0 ? TemplateInput(Number(input.value), Tipo, 'Semestre') : false;
     };
     var buttonReturn = document.createElement("button");
     buttonReturn.classList.add("btn", "btn-danger");
